@@ -1,13 +1,20 @@
-"use client";
-import dynamic from "next/dynamic";
+'use client';
 
-const Map = dynamic(() => import("@/components/Map"), { ssr: false });
+import dynamic from 'next/dynamic';
+
+const Map = dynamic(() => import('@/components/Map'), { ssr: false });
+
+const markers = [
+  { lat: 40.3701218, lng: 49.8157483, title: 'AzTU' },
+  { lat: 40.3749677, lng: 49.8143838, title: 'Elmlər Akademiyası' },
+];
 
 export default function MapPage() {
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Interactive Map</h1>
-      <Map /> 
+    <div >
+      
+      <Map markers={markers} />
     </div>
   );
 }
+
