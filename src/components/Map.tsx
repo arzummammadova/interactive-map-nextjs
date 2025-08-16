@@ -8,13 +8,15 @@ type Marker = {
   lng: number;
   lat: number;
   title: string;
+ 
 };
 
 interface MapProps {
+   useDefaultCenter?: boolean;
   markers?: Marker[];
 }
 
-const Map: React.FC<MapProps> = ({ markers = [] }) => {
+const Map: React.FC<MapProps> = ({ markers = [], useDefaultCenter = true }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
 
@@ -23,12 +25,12 @@ const Map: React.FC<MapProps> = ({ markers = [] }) => {
       if (!process.env.NEXT_PUBLIC_MAPBOX_TOKEN) return;
       mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
-      const center: [number, number] = JSON.parse(
-        process.env.NEXT_PUBLIC_DEFAULT_CENTER || "[49.8671, 40.4093]"
-      );
-      const zoom: number = JSON.parse(
-        process.env.NEXT_PUBLIC_DEFAULT_ZOOM || "10"
-      );
+     const center: [number, number] = useDefaultCenter
+        ? JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_CENTER || "[49.8671, 40.4093]")
+        : [0, 0];
+      const zoom: number = useDefaultCenter
+        ? JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_ZOOM || "10")
+        : 2;
 
       mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current!,
