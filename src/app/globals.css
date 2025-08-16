@@ -44,3 +44,28 @@ a {
     color-scheme: dark;
   }
 } */
+.marker {
+  width: 15px;
+  height: 15px;
+  background-color: #ff4d4f;
+  border-radius: 50%;
+  z-index: 99999;
+  display: flex;
+  border: 2px solid white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.mapboxgl-popup.custom-popup .mapboxgl-popup-content {
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+}
+
+@keyframes fadeIn {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn { animation: fadeIn 1s ease-out forwards; }
+        .animation-delay-500 { animation-delay: 0.5s; }
+        .animation-delay-1000 { animation-delay: 1s; }
+      
