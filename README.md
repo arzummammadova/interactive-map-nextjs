@@ -28,3 +28,5 @@ https://docs.mapbox.com/api/maps/styles/
 https://icons8.com/icons/set/location
 
 https://globe.gl/
+
+https://flowbite.com/docs/components/spinner/

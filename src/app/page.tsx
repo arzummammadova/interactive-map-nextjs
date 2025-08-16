@@ -6,7 +6,7 @@ const MapPreview = dynamic(() => import('@/components/Map'), { ssr: false });
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 overflow-hidden">
+    <div className="relative min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-blue-100 via-purple-100 to-blue-100 overflow-hidden">
 
       <div className="absolute inset-0 z-0 opacity-90 blur-sm">
         <MapPreview markers={[]} useDefaultCenter={false} />
