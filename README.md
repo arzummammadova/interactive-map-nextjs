@@ -36,3 +36,19 @@ https://swr.vercel.app/
 https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API
 
 https://docs.mapbox.com/mapbox-gl-js/api/map/#map#setcenter
+
+
+https://docs.mapbox.com/mapbox-gl-js/example/geojson-polygon/
+layer
+
+https://docs.mapbox.com/help/glossary/geojson/
+
+
+https://www.openstreetmap.org/way/277230442#map=16/40.37462/49.81489
+xeriteni unvanlari tapmaq park
+
+https://racum.blog/articles/osm-to-geojson/
+
+https://geojson.io/#map=2/0/20
+
+https://mygeodata.cloud/conversion#result -convert ucun

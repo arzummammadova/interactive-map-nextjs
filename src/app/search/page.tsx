@@ -20,9 +20,9 @@ export default function Search() {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null)
 
 
-  const {error, isLoading } = useSWR(url, fetcher);
+  const { error, isLoading } = useSWR(url, fetcher);
 
-const { data = [] } = useSWR(url, fetcher);
+  const { data = [] } = useSWR(url, fetcher);
 
 
 
@@ -103,7 +103,7 @@ const { data = [] } = useSWR(url, fetcher);
             lng: item.lng,
             title: item.title,
           }))}
-           center={userLocation || undefined}
+          center={userLocation || undefined}
           // useDefaultCenter={true}
           useDefaultCenter={!userLocation}
 
