@@ -30,3 +30,9 @@ https://icons8.com/icons/set/location
 https://globe.gl/
 
 https://flowbite.com/docs/components/spinner/
+
+https://swr.vercel.app/
+
+https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API
+
+https://docs.mapbox.com/mapbox-gl-js/api/map/#map#setcenter

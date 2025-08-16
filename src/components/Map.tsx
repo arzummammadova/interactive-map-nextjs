@@ -8,15 +8,16 @@ type Marker = {
   lng: number;
   lat: number;
   title: string;
- 
+
 };
 
 interface MapProps {
-   useDefaultCenter?: boolean;
+  useDefaultCenter?: boolean;
   markers?: Marker[];
+  center?: { lat: number; lng: number };
 }
 
-const Map: React.FC<MapProps> = ({ markers = [], useDefaultCenter = true }) => {
+const Map: React.FC<MapProps> = ({ markers = [], center, useDefaultCenter = true }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
 
@@ -25,12 +26,25 @@ const Map: React.FC<MapProps> = ({ markers = [], useDefaultCenter = true }) => {
       if (!process.env.NEXT_PUBLIC_MAPBOX_TOKEN) return;
       mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
-     const center: [number, number] = useDefaultCenter
-        ? JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_CENTER || "[49.8671, 40.4093]")
-        : [0, 0];
-      const zoom: number = useDefaultCenter
-        ? JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_ZOOM || "10")
-        : 2;
+      //  const center: [number, number] = useDefaultCenter
+      //     ? JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_CENTER || "[49.8671, 40.4093]")
+      //     : [0, 0];
+      //   const zoom: number = useDefaultCenter
+      //     ? JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_ZOOM || "10")
+      //     : 2;
+      let mapCenter: [number, number];
+      let zoom: number;
+      if (center) {
+        mapCenter = [center.lng, center.lat];
+        zoom = 13;
+      } else if (useDefaultCenter) {
+        mapCenter = JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_CENTER || "[49.8671,40.4093]");
+        zoom = JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_ZOOM || "10");
+      } else {
+        mapCenter = [0, 0];
+        zoom = 2;
+      }
+
 
       mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current!,
@@ -38,8 +52,8 @@ const Map: React.FC<MapProps> = ({ markers = [], useDefaultCenter = true }) => {
         // style:'mapbox://styles/mapbox/satellite-v9',
         // mapbox://styles/mapbox/dark-v11
         // style:'mapbox://styles/mapbox/outdoors-v12',
-        style:'mapbox://styles/mapbox/standard',
-        center,
+        style: 'mapbox://styles/mapbox/standard',
+        center:mapCenter,
         zoom,
       });
 
@@ -51,8 +65,8 @@ const Map: React.FC<MapProps> = ({ markers = [], useDefaultCenter = true }) => {
       if (typeof markerData.lng !== 'number' || typeof markerData.lat !== 'number') return;
 
       // const popup = new mapboxgl.Popup({ offset: 20 }).setText(markerData.title);
-      const popup = new mapboxgl.Popup({ offset: 20, closeButton: false,  className: 'custom-popup' })
-  .setHTML(`
+      const popup = new mapboxgl.Popup({ offset: 20, closeButton: false, className: 'custom-popup' })
+        .setHTML(`
     <div style="
       position: relative;
       padding: 30px 30px;

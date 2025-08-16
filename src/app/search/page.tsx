@@ -1,10 +1,12 @@
 // https://swr.vercel.app/docs/getting-started
-//ele bilki axios
+//swr-ele bilki axios
 'use client'
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import useSWR from 'swr'
 import { SearchIcon } from 'lucide-react';
+
+// a.	İstifadəçinin coğrafi mövqeyini almaq (browser Geolocation API) və xəritəni ona görə mərkəzləşdirmək.
 
 
 
@@ -15,7 +17,38 @@ const fetcher = (url: string) => fetch(url).then(res => res.json())
 export default function Search() {
   const [query, setQuery] = useState('')
   const [url, setUrl] = useState<string | null>(null);
-  const { data, error, isLoading } = useSWR(url, fetcher)
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null)
+
+
+  const {error, isLoading } = useSWR(url, fetcher);
+
+const { data = [] } = useSWR(url, fetcher);
+
+
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          setUserLocation({
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude
+          })
+        },
+        () => {
+          // console.warn("error ", err.message)
+          // setUserLocation(null)
+
+          const def = JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_CENTER || "[49.8671,40.4093]");
+          setUserLocation({ lat: def[1], lng: def[0] });
+        }
+      )
+    }
+
+    return () => {
+
+    };
+  }, []);
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim()) {
@@ -38,9 +71,14 @@ export default function Search() {
           value={query}
           onChange={(e) => { setQuery(e.target.value) }}
         />
-        <button type="submit" className="text-gray-600 absolute right-6 top-1/3">
+        <button type="submit" className="text-gray-600 absolute right-6 top-1/3 cursor-pointer group ">
           <SearchIcon />
+          <span className="absolute -top-9 right-1/2 translate-x-1/2 px-4 py-2 text-sm text-white bg-black rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+            Axtarış edin
+          </span>
         </button>
+
+
 
 
       </form>
@@ -59,18 +97,26 @@ export default function Search() {
       {error && <p className="text-red-500">Xəta baş verdi</p>}
       {data && data.length > 0 ? (
         <Map
-         
+
           markers={data.map((item: any) => ({
             lat: item.lat,
             lng: item.lng,
-            title: item.name,
+            title: item.title,
           }))}
-           useDefaultCenter={true}
+           center={userLocation || undefined}
+          // useDefaultCenter={true}
+          useDefaultCenter={!userLocation}
+
         />
       ) : (
         url && !isLoading && data && data.length === 0 && <p>Nəticə tapılmadı</p>
       )}
-{!url && <Map markers={[]} useDefaultCenter={true} />}
+      {!url && <Map markers={data.map((item: any) => ({
+        lat: item.lat,
+        lng: item.lng,
+        title: item.title,
+      }))}
+        center={userLocation ?? undefined} />}
 
 
     </div>
