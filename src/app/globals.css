@@ -27,6 +27,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+  
 
 * {
   box-sizing: border-box;
@@ -44,15 +45,9 @@ a {
     color-scheme: dark;
   }
 } */
-.marker {
-  width: 15px;
-  height: 15px;
-  background-color: #ff4d4f;
-  border-radius: 50%;
-  z-index: 99999;
-  display: flex;
-  border: 2px solid white;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+
+body{
+  background-color: rgba(220, 219, 219, 0.221);
 }
 
 .mapboxgl-popup.custom-popup .mapboxgl-popup-content {
