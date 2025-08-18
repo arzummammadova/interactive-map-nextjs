@@ -4,9 +4,39 @@
 import {NextRequest,NextResponse } from 'next/server'
 // import { NextResponse } from 'next/server'
 const POIS=[
-   { lat: 40.3701218, lng: 49.8157483, title: 'AzTU' },
-  { lat: 40.3749677, lng: 49.8143838, title: 'Elmlər Akademiyası' },
-  {lat:40.3698531,lng:49.8134327,title:'Azmiu'}
+   {
+    lat: 40.3701218,
+    lng: 49.8157483,
+    title: 'AzTU',
+    image: '/images/aztu.jpeg',
+    address: 'Bakı, H. Cavid prospekti 25',
+    description: 'Azərbaycan Texniki Universiteti - mühəndislik ixtisasları üzrə ali təhsil müəssisəsi.',
+    category: 'university',
+    phone: '+994 12 538 33 50',
+    link: 'https://aztu.edu.az'
+  },
+  {
+    lat: 40.3749677,
+    lng: 49.8143838,
+    title: 'Elmlər Akademiyası',
+    image: '/images/azmiu.jpg',
+    address: 'Bakı, İstiqlaliyyət küçəsi 30',
+    description: 'Azərbaycan Milli Elmlər Akademiyası - elm və tədqiqat mərkəzi.',
+    category: 'science',
+    phone: '+994 12 492 84 48',
+    link: 'https://aztu.edu.az'
+  },
+  {
+    lat: 40.3698531,
+    lng: 49.8134327,
+    title: 'AzMiu',
+    image: '/images/elmler.jpg',
+    address: 'Bakı, Azadlıq prospekti 68',
+    description: 'Azərbaycan Memarlıq və İnşaat Universiteti - memarlıq və inşaat sahəsində ali təhsil müəssisəsi.',
+    category: 'university',
+    phone: '+994 12 538 33 75',
+    link: 'https://azmiu.edu.az'
+  }
 ]
 export async function GET(request: NextRequest) {
   const {searchParams} = new URL( request.url)

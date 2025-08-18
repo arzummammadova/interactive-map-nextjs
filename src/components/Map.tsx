@@ -1,4 +1,7 @@
 'use client';
+// b.	Marker clustering (məs. supercluster ilə).
+//menbe https://docs.mapbox.com/mapbox-gl-js/example/cluster/
+import Supercluster from 'supercluster';
 
 import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
@@ -8,8 +11,14 @@ type Marker = {
   lng: number;
   lat: number;
   title: string;
-
+  image: string;
+  address: string;
+  description: string;
+  category: string;
+  phone: string;
+  link: string;
 };
+
 
 interface MapProps {
   useDefaultCenter?: boolean;
@@ -26,12 +35,7 @@ const Map: React.FC<MapProps> = ({ markers = [], center, useDefaultCenter = true
       if (!process.env.NEXT_PUBLIC_MAPBOX_TOKEN) return;
       mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
-      //  const center: [number, number] = useDefaultCenter
-      //     ? JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_CENTER || "[49.8671, 40.4093]")
-      //     : [0, 0];
-      //   const zoom: number = useDefaultCenter
-      //     ? JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_ZOOM || "10")
-      //     : 2;
+
       let mapCenter: [number, number];
       let zoom: number;
       if (center) {
@@ -48,10 +52,7 @@ const Map: React.FC<MapProps> = ({ markers = [], center, useDefaultCenter = true
 
       mapRef.current = new mapboxgl.Map({
         container: mapContainerRef.current!,
-        // bunlara baxmaq dark light mode olsa
-        // style:'mapbox://styles/mapbox/satellite-v9',
-        // mapbox://styles/mapbox/dark-v11
-        // style:'mapbox://styles/mapbox/outdoors-v12',
+
         style: 'mapbox://styles/mapbox/standard',
         center: mapCenter,
         zoom,
@@ -60,13 +61,13 @@ const Map: React.FC<MapProps> = ({ markers = [], center, useDefaultCenter = true
 
       mapRef.current.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
 
-      mapRef.current.on('load', async() => {
+      mapRef.current.on('load', async () => {
 
         const response = await fetch('/data/multipolygons.geojson');
         const geojsonData = await response.json();
         mapRef.current?.addSource('maine', {
           'type': 'geojson',
-          'data':geojsonData
+          'data': geojsonData
           // 'data': {
           //   'type': 'Feature',
           //   'geometry': {
@@ -83,25 +84,23 @@ const Map: React.FC<MapProps> = ({ markers = [], center, useDefaultCenter = true
           // }
         });
 
-        // Add a new layer to visualize the polygon.
         mapRef.current?.addLayer({
           'id': 'maine',
           'type': 'fill',
-          'source': 'maine', // reference the data source
+          'source': 'maine',
           'layout': {},
           'paint': {
-            'fill-color': '#0070ff', // blue color fill
+            'fill-color': '#1663c7',
             'fill-opacity': 0.5
           }
         });
-        // Add a black outline around the polygon.
         mapRef.current?.addLayer({
           'id': 'outline',
           'type': 'line',
           'source': 'maine',
           'layout': {},
           'paint': {
-            'line-color': '#000',
+            'line-color': '#110a5c',
             'line-width': 3
           }
         });
@@ -111,60 +110,52 @@ const Map: React.FC<MapProps> = ({ markers = [], center, useDefaultCenter = true
       const bounds = new mapboxgl.LngLatBounds();
       markers.forEach((markerData) => {
         if (typeof markerData.lng !== 'number' || typeof markerData.lat !== 'number') return;
+       const popup = new mapboxgl.Popup({ 
+  offset: 20, 
+  closeButton: false, 
+  className: 'custom-popup' 
+})
+.setHTML(`
+  <div class="relative border-none p-4 text-sm bg-white rounded-xl shadow-lg max-w-xs">
+    <button 
+      class="absolute top-2 right-2 w-7 h-7 flex items-center justify-center rounded-full bg-white hover:bg-red-50 transition "
+      onclick="this.parentElement.parentElement.remove()"
+      aria-label="Close popup">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
 
-        // const popup = new mapboxgl.Popup({ offset: 20 }).setText(markerData.title);
-        const popup = new mapboxgl.Popup({ offset: 20, closeButton: false, className: 'custom-popup' })
-          .setHTML(`
-    <div style="
-      position: relative;
-      padding: 30px 30px;
-      font-size: 14px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      max-width: 250px;
-              background: white;
+    <img src="${markerData.image}" alt="${markerData.title}" 
+      class="rounded-lg w-full h-32 object-cover mb-3 shadow-sm" />
 
-    ">
-      <button style="
-        position: absolute;
-        top: 6px;
-        right: 6px;
-        background: white;
-        border: none;
-        border-radius: 50%;
-        width: 22px;
-        height: 22px;
-        font-size: 14px;
-        line-height: 22px;
-        text-align: center;
-        cursor: pointer;
-        transition: background 0.2s;
-      " onclick="this.parentElement.parentElement.remove()">×</button>
-      <p> Ünvan</p>
-      <strong style="color:#333; font-size:15px;">${markerData.title}</strong><br/>
-      
-    </div>
-  `);
+    <h3 class="text-lg font-semibold text-gray-900 mb-1">${markerData.title}</h3>
+    <p class="text-gray-600 text-sm mb-2">${markerData.description}</p>
+
+    <p class="text-gray-500 text-xs">${markerData.address}</p>
+    <p class="text-gray-500 text-xs">${markerData.phone}</p>
+
+    <a href="${markerData.link}" target="_blank" 
+      class="inline-block mt-3 text-blue-600 hover:underline font-medium">
+      Ətraflı bax →
+    </a>
+  </div>
+`);
+
+
+
+
 
         const el = document.createElement('div');
-        // el.className = 'custom-marker';
-        // el.style.width = "40px";
-        // el.style.height = "40px";
-        // el.style.transform = "scale(0.5)";
-        // el.style.transformOrigin = "center";
 
-        el.style.width = "42px";
-        el.style.height = "42px";
+
+        el.style.width = "48px";
+        el.style.height = "48px";
         el.style.display = "flex";
         el.style.alignItems = "center";
         el.style.justifyContent = "center";
 
         el.innerHTML = `<img src="/images/locationicon.gif" alt="location" style="width:100%; height:100%;" />`;
-        // el.style.borderRadius = '50%';
-        // el.style.backgroundColor = '#ff4d4f';
-        // el.style.border = '3px solid #fff';
-        // el.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
-        // el.innerHTML = `<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><ellipse cx="64" cy="94.379" rx="54.5" ry="13.333" style="fill:#feded6"/><ellipse cx="64" cy="94.379" rx="33.613" ry="7.176" style="fill:#f6c6bb"/><path d="M64 20.288a29.333 29.333 0 0 0-29.333 29.333C34.667 71.288 64 95.871 64 95.871s29.333-23.917 29.333-46.25A29.333 29.333 0 0 0 64 20.288zm0 42.289a12.956 12.956 0 1 1 12.956-12.956A12.956 12.956 0 0 1 64 62.577z" style="fill:#ec4d85"/><path d="M59.75 20.6a29.337 29.337 0 0 0-25.083 29.021c0 16.51 17.023 34.7 25.13 42.432 8.144-7.624 25.037-25.479 25.037-42.432A29.337 29.337 0 0 0 59.75 20.6zM64 62.577h-8.5a12.956 12.956 0 1 1 0-25.912H64a12.956 12.956 0 1 1 0 25.912z" style="fill:#fd748c"/></svg>`
         new mapboxgl.Marker({ element: el })
           .setLngLat([markerData.lng, markerData.lat])
           .setPopup(popup)
@@ -189,3 +180,13 @@ const Map: React.FC<MapProps> = ({ markers = [], center, useDefaultCenter = true
 };
 
 export default Map;
+
+
+
+
+//  const center: [number, number] = useDefaultCenter
+//     ? JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_CENTER || "[49.8671, 40.4093]")
+//     : [0, 0];
+//   const zoom: number = useDefaultCenter
+//     ? JSON.parse(process.env.NEXT_PUBLIC_DEFAULT_ZOOM || "10")
+//     : 2;
