@@ -1,9 +1,15 @@
 
-Interaktiv Map
+Interaktiv Map-GeoMap
 
+
+
+![Map Screenshot](/images/cover.png)
 
 ##  Run etmək üçün
 ```bash
+git clone https://github.com/arzummammadova/interactive-map-nextjs.git
+cd interactive-map-nextjs
+
 npm i
 npm run dev
 
@@ -16,11 +22,23 @@ NEXT_PUBLIC_DEFAULT_ZOOM=12
 
 
 
+Xəritədə məkanlar markerlərlə göstərilir, popup-larda ətraflı məlumat verilir və istifadəçi mövqeyinə uyğun mərkəzləşmə təmin olunur.
+
+Dizayn: Tailwind CSS
+
+İkonlar: Lucide Icons
+
+Animasiya: Framer Motion
+
+Xəritə: Mapbox GL JS
+
+Data fetching: SWR
 ## Tapşırıq necə yerinə yetirildi
 
 Layihəni Next.js ilə yazdım.
 
 Tailwind CSS ilə dizayn etdim.
+iconlar ucun lucide icons textin animasiya ucun framer-motion
 Xəritənin göstərilməsi üçün Mapbox istifadə etdim.
 
 Xəritə komponentini client-side yüklədim (dynamic import ilə ssr: false).
@@ -29,26 +47,27 @@ Home, Map, Search səhifələrinin hamısında eyni xəritə komponentindən ist
 
 Home Page – center = false olduqda default xəritə göstərilir.
 
-diger Page-lerde .env fayldakı parametrləri oxuyur, istifadəçi icazə versə xəritəni onun mövqeyinə mərkəzləşdirir.
+diger Page-lerde .env fayldakı parametrləri oxuyur ona gore merkezlesir , istifadəçi icazə versə xəritəni onun mövqeyinə mərkəzləşdirir.
 
 
 
-Map Page 
+### Map Page 
 Markerlərlə məkanları göstərdim.
 
 Kliklənəndə popup açılır (title, description, image və s. göstərilir).
 
 const Map = dynamic(() => import('@/components/Map'), { ssr: false }) istifadə etdim.
 
-Search Page
+### Search Page
 
 /app/api/poi – ada görə POI axtarışı.
 
-SWR kitabxanasından istifadə etdim.
+SWR istifadə etdim.
 
 Loading/Error vəziyyətlərini göstərdim.
 
 Loading zamanı spinner çıxır.
+error zamanani netice tapilmadi 
 
 GeoJSON Layer
 
