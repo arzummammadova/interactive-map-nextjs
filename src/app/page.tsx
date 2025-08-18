@@ -29,17 +29,17 @@ export default function Home() {
           transition={{ delay: 0.2, duration: 0.8 }}
         >
           <span className=" text-black">
-            Interaktiv Xəritəyə
+           Map<span className="text-[#1554a8]">Geo</span>
           </span>
           <br />
-          <motion.span 
+          {/* <motion.span 
             className="inline-block"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
             Xoş Gəlmisiniz
-          </motion.span>
+          </motion.span> */}
         </motion.h1>
 
         <motion.p 

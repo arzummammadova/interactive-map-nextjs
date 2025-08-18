@@ -110,12 +110,12 @@ const Map: React.FC<MapProps> = ({ markers = [], center, useDefaultCenter = true
       const bounds = new mapboxgl.LngLatBounds();
       markers.forEach((markerData) => {
         if (typeof markerData.lng !== 'number' || typeof markerData.lat !== 'number') return;
-       const popup = new mapboxgl.Popup({ 
-  offset: 20, 
-  closeButton: false, 
-  className: 'custom-popup' 
-})
-.setHTML(`
+        const popup = new mapboxgl.Popup({
+          offset: 20,
+          closeButton: false,
+          className: 'custom-popup'
+        })
+          .setHTML(`
   <div class="relative border-none p-4 text-sm bg-white rounded-xl shadow-lg max-w-xs">
     <button 
       class="absolute top-2 right-2 w-7 h-7 flex items-center justify-center rounded-full bg-white hover:bg-red-50 transition "
@@ -165,7 +165,7 @@ const Map: React.FC<MapProps> = ({ markers = [], center, useDefaultCenter = true
       });
 
       if (markers.length > 0) {
-        mapRef.current.fitBounds(bounds, { padding: 70, maxZoom: 15 });
+        mapRef.current.fitBounds(bounds, { padding: 60, maxZoom: 14 });
       }
     }
     return () => {

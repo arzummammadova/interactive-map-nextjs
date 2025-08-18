@@ -37,7 +37,19 @@ const markers = [
     category: 'university',
     phone: '+994 12 538 33 75',
     link: 'https://azmiu.edu.az'
-  }
+  },
+   {
+    lat: 40.374554,
+    lng: 49.811465,
+    title: 'BDU',
+    image: '/images/bdu.jpeg',
+    address: 'Bakı, Zərifə Əliyeva küçəsi 23',
+    description: 'Bakı Dövlət Universiteti - Azərbaycan üzrə ən böyük və ən qədim ali təhsil müəssisəsi.',
+    category: 'university',
+    phone: '+994 12 439 80 00',
+    link: 'https://www.bsu.edu.az'
+  },
+  
 ];
 
 

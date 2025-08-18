@@ -36,7 +36,20 @@ const POIS=[
     category: 'university',
     phone: '+994 12 538 33 75',
     link: 'https://azmiu.edu.az'
-  }
+  },
+    {
+    lat: 40.374558,
+    lng: 49.8088902,
+    title: 'BDU',
+    image: '/images/bdu.jpeg',
+    address: 'Bakı, Z. Khalilov küçəsi 23',
+    description: 'Bakı Dövlət Universiteti - 1919-cu ildə təsis edilmiş Azərbaycanın ən qədim və ən böyük ali təhsil müəssisəsi.',
+    category: 'university',
+    phone: '+994 12 439 12 12',
+    link: 'https://www.bsu.edu.az'
+  },
+   
+
 ]
 export async function GET(request: NextRequest) {
   const {searchParams} = new URL( request.url)
