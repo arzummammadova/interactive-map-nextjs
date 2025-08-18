@@ -1,3 +1,61 @@
+
+Interaktiv Map
+
+
+##  Run etmək üçün
+```bash
+npm i
+npm run dev
+
+
+
+.env nümüne
+NEXT_PUBLIC_MAPBOX_TOKEN=mapboxdakı_tokenin
+NEXT_PUBLIC_DEFAULT_CENTER="[49.8671, 40.4093]"
+NEXT_PUBLIC_DEFAULT_ZOOM=12
+
+
+
+Tapşırıq necə yerinə yetirildi
+
+Layihəni Next.js ilə yazdım.
+
+Tailwind CSS ilə dizayn etdim.
+Xəritənin göstərilməsi üçün Mapbox istifadə etdim.
+
+Xəritə komponentini client-side yüklədim (dynamic import ilə ssr: false).
+
+Home, Map, Search səhifələrinin hamısında eyni xəritə komponentindən istifadə etdim.
+
+Home Page – center = false olduqda default xəritə göstərilir.
+
+diger Page-lerde .env fayldakı parametrləri oxuyur, istifadəçi icazə versə xəritəni onun mövqeyinə mərkəzləşdirir.
+
+
+
+Map Page 
+Markerlərlə məkanları göstərdim.
+
+Kliklənəndə popup açılır (title, description, image və s. göstərilir).
+
+const Map = dynamic(() => import('@/components/Map'), { ssr: false }) istifadə etdim.
+
+Search Page
+
+/app/api/poi – ada görə POI axtarışı.
+
+SWR kitabxanasından istifadə etdim.
+
+Loading/Error vəziyyətlərini göstərdim.
+
+Loading zamanı spinner çıxır.
+
+GeoJSON Layer
+
+Hüseyn Cavid parkının məlumatlarını götürdüm (XML formatında).
+
+Sonra .geojson-a çevirdim və xəritədə istifadə etdim.
+
 menbeler
 
 https://youtu.be/elidLLPzmZY?si=AuotN6lvNLbUBTtd
