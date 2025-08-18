@@ -52,3 +52,5 @@ https://racum.blog/articles/osm-to-geojson/
 https://geojson.io/#map=2/0/20
 
 https://mygeodata.cloud/conversion#result -convert ucun
+
+https://developers.google.com/maps/documentation/javascript/marker-clustering

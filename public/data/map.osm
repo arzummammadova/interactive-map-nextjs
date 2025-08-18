@@ -1,0 +1,36 @@
+<osm version="0.6" generator="openstreetmap-cgimap 2.1.0 (1766900 spike-08.openstreetmap.org)" copyright="OpenStreetMap and contributors" attribution="http://www.openstreetmap.org/copyright" license="http://opendatacommons.org/licenses/odbl/1-0/">
+<way id="277230442" visible="true" version="6" changeset="150820925" timestamp="2024-05-03T06:12:54Z" user="qwf" uid="20436262">
+<nd ref="2817581760"/>
+<nd ref="2817581781"/>
+<nd ref="2817581761"/>
+<nd ref="2817581782"/>
+<nd ref="2817581762"/>
+<nd ref="2817581763"/>
+<nd ref="2817581764"/>
+<nd ref="2817581783"/>
+<nd ref="2817581765"/>
+<nd ref="2817581766"/>
+<nd ref="2817581784"/>
+<nd ref="2817581767"/>
+<nd ref="3755587562"/>
+<nd ref="2817581768"/>
+<nd ref="2817581777"/>
+<nd ref="2817581769"/>
+<nd ref="2817581770"/>
+<nd ref="2817581778"/>
+<nd ref="2817581771"/>
+<nd ref="2817581772"/>
+<nd ref="2817581773"/>
+<nd ref="2817581774"/>
+<nd ref="2817581779"/>
+<nd ref="2817581775"/>
+<nd ref="2817581780"/>
+<nd ref="2817581776"/>
+<nd ref="2817581760"/>
+<tag k="designation" v="Park"/>
+<tag k="leisure" v="park"/>
+<tag k="name" v="Hüseyn Cavid parkı"/>
+<tag k="name:ru" v="Парк им. Гусейна Джавида"/>
+<tag k="source" v="Baku City Administration"/>
+</way>
+</osm>
