@@ -43,7 +43,8 @@ export default function Home() {
         </motion.h1>
 
         <motion.p 
-          className="mt-4 text-lg sm:text-xl md:text-2xl text-gray-700 max-w-2xl leading-relaxed"
+          className="mt-4
+           text-lg sm:text-xl md:text-xl text-gray-800 max-w-2xl leading-relaxed"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.8 }}
