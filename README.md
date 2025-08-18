@@ -7,16 +7,16 @@ Interaktiv Map
 npm i
 npm run dev
 
+```
 
-
-.env nümüne
+## .env nümüne
 NEXT_PUBLIC_MAPBOX_TOKEN=mapboxdakı_tokenin
 NEXT_PUBLIC_DEFAULT_CENTER="[49.8671, 40.4093]"
 NEXT_PUBLIC_DEFAULT_ZOOM=12
 
 
 
-Tapşırıq necə yerinə yetirildi
+## Tapşırıq necə yerinə yetirildi
 
 Layihəni Next.js ilə yazdım.
 
@@ -56,7 +56,7 @@ Hüseyn Cavid parkının məlumatlarını götürdüm (XML formatında).
 
 Sonra .geojson-a çevirdim və xəritədə istifadə etdim.
 
-menbeler
+## menbeler
 
 https://youtu.be/elidLLPzmZY?si=AuotN6lvNLbUBTtd
 
