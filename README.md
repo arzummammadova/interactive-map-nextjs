@@ -3,7 +3,7 @@ Interaktiv Map-GeoMap
 
 
 
-![Map Screenshot](/images/cover.png)
+![Map Screenshot](/public/images/cover.png)
 
 ##  Run etmək üçün
 ```bash
