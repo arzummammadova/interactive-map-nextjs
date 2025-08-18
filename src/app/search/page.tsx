@@ -8,6 +8,22 @@ import { SearchIcon } from 'lucide-react';
 
 // a.	İstifadəçinin coğrafi mövqeyini almaq (browser Geolocation API) və xəritəni ona görə mərkəzləşdirmək.
 
+function useDebounce<T>(value: T, delay: number = 400) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    // Cleanup the timeout if value or delay changes
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
 
 
 const Map = dynamic(() => import('@/components/Map'), { ssr: false });
@@ -16,14 +32,19 @@ const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 export default function Search() {
   const [query, setQuery] = useState('')
-  const [url, setUrl] = useState<string | null>(null);
+  // const [url, setUrl] = useState<string | null>(null);
+
+  const debouncedInput = useDebounce(query, 500);
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null)
 
 
-  const { error, isLoading } = useSWR(url, fetcher);
+    const url = debouncedInput ? `/api/poi?search=${debouncedInput}` : null;
 
-  const { data = [] } = useSWR(url, fetcher);
+  // const { error, isLoading } = useSWR(url, fetcher);
 
+  // const { data = [] } = useSWR(url, fetcher);
+
+const { data = [], error, isLoading } = useSWR(url, fetcher);
 
 
   useEffect(() => {
@@ -53,10 +74,10 @@ export default function Search() {
     e.preventDefault();
     if (!query.trim()) {
       // console.log("error")
-      setUrl(null);
+      // setUrl(null);
       return;
     }
-    setUrl(`/api/poi?search=${query}`)
+    // setUrl(`/api/poi?search=${query}`)
 
   }
 
@@ -102,7 +123,7 @@ export default function Search() {
             lat: item.lat,
             lng: item.lng,
             title: item.title,
-            image: item.image ,
+            image: item.image,
             address: item.adress || '',
             description: item.description || '',
             category: item.category || '',
