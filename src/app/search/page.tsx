@@ -35,16 +35,18 @@ export default function Search() {
   // const [url, setUrl] = useState<string | null>(null);
 
   const debouncedInput = useDebounce(query, 500);
-  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null)
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [showSidebar, setshowSidebar] = useState(false);
 
 
-    const url = debouncedInput ? `/api/poi?search=${debouncedInput}` : null;
+
+  const url = debouncedInput ? `/api/poi?search=${debouncedInput}` : null;
 
   // const { error, isLoading } = useSWR(url, fetcher);
 
   // const { data = [] } = useSWR(url, fetcher);
 
-const { data = [], error, isLoading } = useSWR(url, fetcher);
+  const { data = [], error, isLoading } = useSWR(url, fetcher);
 
 
   useEffect(() => {
@@ -70,6 +72,18 @@ const { data = [], error, isLoading } = useSWR(url, fetcher);
 
     };
   }, []);
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setshowSidebar(true)
+    }
+    else {
+      setshowSidebar(false)
+
+    }
+
+
+  }, [data]);
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (!query.trim()) {
@@ -81,8 +95,22 @@ const { data = [], error, isLoading } = useSWR(url, fetcher);
 
   }
 
+
   return (
     <div className="flex relative flex-col justify-center items-center min-h-screen">
+      {
+        showSidebar ? (
+          <div className="absolute top-0 flex flex-col z-50 left-0 h-full w-80 bg-white shadow-lg p-4">
+            <h2 className="font-bold text-lg mb-3">Axtarış nəticələri</h2>
+            {data.map((item: any, idx: number) => (
+              <div key={idx} className="mb-4 border-b pb-2">
+                <h3 className="font-semibold">{item.title}</h3>
+                <p className="text-sm text-gray-600">{item.address}</p>
+              </div>
+            ))}
+          </div>
+        ) : null
+      }
 
       <form className='absolute top-5 z-6' onSubmit={handleSearch} action="">
         <input type="text"
@@ -117,6 +145,7 @@ const { data = [], error, isLoading } = useSWR(url, fetcher);
 
       {error && <p className="text-red-500">Xəta baş verdi</p>}
       {data && data.length > 0 ? (
+
         <Map
 
           markers={data.map((item: any) => ({

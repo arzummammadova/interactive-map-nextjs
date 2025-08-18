@@ -165,7 +165,7 @@ const Map: React.FC<MapProps> = ({ markers = [], center, useDefaultCenter = true
       });
 
       if (markers.length > 0) {
-        mapRef.current.fitBounds(bounds, { padding: 60, maxZoom: 14 });
+        mapRef.current.fitBounds(bounds, { padding: 55, maxZoom: 13.2 });
       }
     }
     return () => {
