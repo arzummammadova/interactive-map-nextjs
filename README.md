@@ -22,17 +22,6 @@ NEXT_PUBLIC_DEFAULT_ZOOM=12
 
 
 
-Xəritədə məkanlar markerlərlə göstərilir, popup-larda ətraflı məlumat verilir və istifadəçi mövqeyinə uyğun mərkəzləşmə təmin olunur.
-
-Dizayn: Tailwind CSS
-
-İkonlar: Lucide Icons
-
-Animasiya: Framer Motion
-
-Xəritə: Mapbox GL JS
-
-Data fetching: SWR
 ## Tapşırıq necə yerinə yetirildi
 
 Layihəni Next.js ilə yazdım.
