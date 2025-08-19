@@ -57,7 +57,7 @@ Kliklənəndə popup açılır (title, description, image və s. göstərilir).
 const Map = dynamic(() => import('@/components/Map'), { ssr: false }) istifadə etdim.
 SSR zamanı yüklənmir, yalnız brauzerdə göstərilir.
 
-fitBounds istifadə bütün markerlər xəritəyə yerləşsin
+fitBounds istifadə bütün markerlər xəritəyə yerləşməsini tənimlədim
 
 ### Search Page
 
