@@ -135,10 +135,7 @@ const Map: React.FC<MapProps> = ({ markers = [], center, useDefaultCenter = true
     <p class="text-gray-500 text-xs">${markerData.address}</p>
     <p class="text-gray-500 text-xs">${markerData.phone}</p>
 
-    <a href="${markerData.link}" target="_blank" 
-      class="inline-block mt-3 text-blue-600 hover:underline font-medium">
-      Ətraflı bax →
-    </a>
+   
   </div>
 `);
 
@@ -165,7 +162,7 @@ const Map: React.FC<MapProps> = ({ markers = [], center, useDefaultCenter = true
       });
 
       if (markers.length > 0) {
-        mapRef.current.fitBounds(bounds, { padding: 55, maxZoom: 13.2 });
+        mapRef.current.fitBounds(bounds, { padding: 50, maxZoom: 13 });
       }
     }
     return () => {

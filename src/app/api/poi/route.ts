@@ -13,7 +13,8 @@ const POIS=[
     description: 'Azərbaycan Texniki Universiteti - mühəndislik ixtisasları üzrə ali təhsil müəssisəsi.',
     category: 'university',
     phone: '+994 12 538 33 50',
-    link: 'https://aztu.edu.az'
+    link: 'https://aztu.edu.az',
+    'hours': 'Həftə içi: 09:00 - 17:00, Şənbə: 10:00 - 14:00, Bazar: Bağlı'
   },
   {
     lat: 40.3749677,

@@ -4,7 +4,8 @@
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr'
-import { SearchIcon } from 'lucide-react';
+import { ClosedCaption, SearchIcon, X } from 'lucide-react';
+import { MapPin, Phone, Globe, Clock, ArrowLeft } from "lucide-react";
 
 // a.	İstifadəçinin coğrafi mövqeyini almaq (browser Geolocation API) və xəritəni ona görə mərkəzləşdirmək.
 
@@ -16,7 +17,6 @@ function useDebounce<T>(value: T, delay: number = 400) {
       setDebouncedValue(value);
     }, delay);
 
-    // Cleanup the timeout if value or delay changes
     return () => {
       clearTimeout(handler);
     };
@@ -38,6 +38,7 @@ export default function Search() {
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [showSidebar, setshowSidebar] = useState(false);
 
+  const [selected, setSelected] = useState<any>(null);
 
 
   const url = debouncedInput ? `/api/poi?search=${debouncedInput}` : null;
@@ -94,43 +95,145 @@ export default function Search() {
     // setUrl(`/api/poi?search=${query}`)
 
   }
-
+  const closeButton = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setshowSidebar(false);
+    setSelected(null);
+    setQuery('');
+  };
 
   return (
     <div className="flex relative flex-col justify-center items-center min-h-screen">
-      {
-        showSidebar ? (
-          <div className="absolute top-0 flex flex-col z-50 left-0 h-full w-80 bg-white shadow-lg p-4">
-            <h2 className="font-bold text-lg mb-3">Axtarış nəticələri</h2>
-            {data.map((item: any, idx: number) => (
-              <div key={idx} className="mb-4 border-b pb-2">
-                <h3 className="font-semibold">{item.title}</h3>
-                <p className="text-sm text-gray-600">{item.address}</p>
-              </div>
-            ))}
-          </div>
-        ) : null
-      }
+      <form
+        className="absolute top-5 
+        z-10 w-full 
+        flex justify-center px-3"
+        onSubmit={handleSearch}
+      >
+        <div className="relative w-full sm:w-[320px] md:w-[400px] lg:w-[500px]">
+          <input
+            type="text"
+            className="w-full flex flex-col z-50 bg-white border border-gray-200 rounded-4xl pl-6 pr-12 py-3 sm:py-2 sm:text-sm md:py-3 md:text-base lg:py-5 shadow-md 
+                 focus:outline-none focus:ring-2 focus:ring-gray-200 transition"
+            placeholder="Ünvan yazaraq axtarış edin..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
 
-      <form className='absolute top-5 z-6' onSubmit={handleSearch} action="">
-        <input type="text"
-          className='bg-white w-[500px] border border-gray-200 rounded-4xl px-7 py-5
-          shadow-md'
-          placeholder='Ünvan yazaraq axtarış edin...'
-          value={query}
-          onChange={(e) => { setQuery(e.target.value) }}
-        />
-        <button type="submit" className="text-gray-600 absolute right-6 top-1/3 cursor-pointer group ">
-          <SearchIcon />
-          <span className="absolute -top-9 right-1/2 translate-x-1/2 px-4 py-2 text-sm text-white bg-black rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
-            Axtarış edin
-          </span>
-        </button>
-
-
-
-
+          <button
+            type="submit"
+            className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-500 cursor-pointer group"
+          >
+            <SearchIcon className="w-5 h-5 sm:w-4 sm:h-4 md:w-5 md:h-5 lg:w-6 lg:h-6" />
+            <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 text-xs sm:text-[11px] text-white bg-black rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+              Axtarış edin
+            </span>
+          </button>
+        </div>
       </form>
+      {showSidebar ? (
+        <div
+          className={` hidden lg:flex lg:flex-col  absolute top-0 left-0 h-full z-15 bg-white shadow-xl 
+    overflow-y-auto rounded-r-2xl transition-all duration-300
+    w-96 ${showSidebar ? "translate-x-0 opacity-100" : "-translate-x-full opacity-0"}
+  `}
+        >
+          <div className="flex items-center justify-between  px-4 py-4">
+            <h2 className=" text-gray-500 text-xl ">
+              Axtarış nəticələri
+            </h2>
+            <X onClick={closeButton} className='text-gray-500' />
+          </div>
+
+
+          {!selected ? (
+            data.map((item: any, idx: number) => (
+              <div
+                key={idx}
+                onClick={() => setSelected(item)}
+                className="mb-4 border-b border-b-gray-200 pb-3 flex justify-between items-center cursor-pointer hover:bg-gray-50 px-4 py-2 transition rounded-lg"
+              >
+                <div>
+                  <h3 className="font-semibold text-gray-800">{item.title}</h3>
+
+                  <p className="text-sm text-gray-600">{item.address}</p>
+                </div>
+                <img
+                  className="w-20 h-20 rounded-lg object-cover shadow"
+                  src={item.image}
+                  alt={item.title}
+                />
+              </div>
+            ))
+          ) : (
+            <div className="flex flex-col">
+              <div className="relative">
+                <img
+                  src={selected.image}
+                  alt={selected.title}
+                  className="w-full h-60 object-cover"
+                />
+                <button
+                  onClick={() => setSelected(null)}
+                  className="absolute top-3 left-3 bg-white rounded-full p-2 shadow hover:bg-gray-100"
+                >
+                  <ArrowLeft size={18} />
+                </button>
+              </div>
+
+              <div className="p-4 space-y-4">
+                <h2 className="text-2xl font-bold text-gray-800">
+                  {selected.title}
+                </h2>
+                <p className="text-gray-600 text-sm">
+                  {selected.description || ""}
+                </p>
+                <p className="text-gray-500 text-md">
+                  {selected.category ? `Kateqoriya: ${selected.category}` : ""}
+                </p>
+
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 text-gray-700">
+                    <MapPin size={20} className="text-blue-600" />
+                    <span>{selected.address}</span>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-gray-700">
+                    <Phone size={20} className="text-blue-600" />
+                    <a
+                      href={`tel:${selected.phone}`}
+                      className="hover:underline"
+                    >
+                      {selected.phone}
+                    </a>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-gray-700">
+                    <Globe size={20} className="text-blue-600" />
+                    <a
+                      href={selected.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:underline"
+                    >
+                      {selected.link}
+                    </a>
+                  </div>
+
+                  {selected.hours && (
+                    <div className="flex align-center items-center gap-2 text-gray-700">
+                      <Clock size={22} className="text-blue-600" />
+                      <span>{selected.hours}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      ) : null}
+
+
       {isLoading &&
 
         <div role="status" >
@@ -147,24 +250,41 @@ export default function Search() {
       {data && data.length > 0 ? (
 
         <Map
-
-          markers={data.map((item: any) => ({
-            lat: item.lat,
-            lng: item.lng,
-            title: item.title,
-            image: item.image,
-            address: item.adress || '',
-            description: item.description || '',
-            category: item.category || '',
-            phone: item.phone || '',
-            link: item.link || '#',
-          }))}
-
-          center={userLocation || undefined}
-          // useDefaultCenter={true}
-          useDefaultCenter={!userLocation}
-
+          markers={
+            selected
+              ? [
+                {
+                  lat: selected.lat,
+                  lng: selected.lng,
+                  title: selected.title,
+                  image: selected.image,
+                  address: selected.address || '',
+                  description: selected.description || '',
+                  category: selected.category || '',
+                  phone: selected.phone || '',
+                  link: selected.link || '#',
+                },
+              ]
+              : data.map((item: any) => ({
+                lat: item.lat,
+                lng: item.lng,
+                title: item.title,
+                image: item.image,
+                address: item.address || '',
+                description: item.description || '',
+                category: item.category || '',
+                phone: item.phone || '',
+                link: item.link || '#',
+              }))
+          }
+          center={
+            selected
+              ? { lat: selected.lat, lng: selected.lng }
+              : userLocation || undefined
+          }
+          useDefaultCenter={!userLocation && !selected}
         />
+
       ) : (
         url && !isLoading && data && data.length === 0 && <p>Nəticə tapılmadı</p>
       )}
