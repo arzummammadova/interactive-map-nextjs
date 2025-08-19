@@ -142,6 +142,9 @@ https://developers.google.com/maps/documentation/javascript/marker-clustering
 
 https://www.dhiwise.com/blog/design-converter/how-to-use-usedebounce-for-better-react-performance
 
+// https://nextjs.org/docs/app/api-reference/file-conventions/route
+// https://nextjs.org/docs/app/api-reference/functions/next-request
+// https://nextjs.org/docs/app/api-reference/functions/next-response
 
 
 
