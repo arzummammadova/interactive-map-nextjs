@@ -17,10 +17,11 @@ npm run dev
 ```
 
 ## .env nümüne
+```bash
 NEXT_PUBLIC_MAPBOX_TOKEN=mapboxdakı_tokenin
 NEXT_PUBLIC_DEFAULT_CENTER="[49.8671, 40.4093]"
 NEXT_PUBLIC_DEFAULT_ZOOM=12
-
+```
 
 
 ## Tapşırıq necə yerinə yetirildi
