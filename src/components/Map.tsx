@@ -1,7 +1,4 @@
 'use client';
-// b.	Marker clustering (məs. supercluster ilə).
-//menbe https://docs.mapbox.com/mapbox-gl-js/example/cluster/
-import Supercluster from 'supercluster';
 
 import React, { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';

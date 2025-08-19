@@ -87,11 +87,9 @@ export default function Search() {
   }, [data]);
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!query.trim()) {
-      // console.log("error")
-      // setUrl(null);
-      return;
-    }
+   if (query.trim()) {
+    setSelected(null);
+  }
     // setUrl(`/api/poi?search=${query}`)
 
   }

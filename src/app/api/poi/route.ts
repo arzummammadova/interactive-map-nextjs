@@ -13,8 +13,7 @@ const POIS=[
     description: 'Azərbaycan Texniki Universiteti - mühəndislik ixtisasları üzrə ali təhsil müəssisəsi.',
     category: 'university',
     phone: '+994 12 538 33 50',
-    link: 'https://aztu.edu.az',
-    'hours': 'Həftə içi: 09:00 - 17:00, Şənbə: 10:00 - 14:00, Bazar: Bağlı'
+    link: 'https://aztu.edu.az'
   },
   {
     lat: 40.3749677,
@@ -38,17 +37,51 @@ const POIS=[
     phone: '+994 12 538 33 75',
     link: 'https://azmiu.edu.az'
   },
-    {
-    lat: 40.374558,
-    lng: 49.8088902,
+  {
+    lat: 40.374554,
+    lng: 49.811465,
     title: 'BDU',
     image: '/images/bdu.jpeg',
-    address: 'Bakı, Z. Khalilov küçəsi 23',
-    description: 'Bakı Dövlət Universiteti - 1919-cu ildə təsis edilmiş Azərbaycanın ən qədim və ən böyük ali təhsil müəssisəsi.',
+    address: 'Bakı, Zərifə Əliyeva küçəsi 23',
+    description: 'Bakı Dövlət Universiteti - Azərbaycan üzrə ən böyük və ən qədim ali təhsil müəssisəsi.',
     category: 'university',
-    phone: '+994 12 439 12 12',
+    phone: '+994 12 439 80 00',
     link: 'https://www.bsu.edu.az'
   },
+  {
+    lat: 40.390021,
+    lng: 49.8019656,
+    title: 'İnşaatçılar metrosu',
+    image: 'https://maps.gstatic.com/tactile/pane/default_geocode-2x.png',
+    address: 'Bakı, Yasamal rayonu',
+    description: 'İnşaatçılar metrostansiyası - Bakı metrosunun ən işlək stansiyalarından biri.',
+    category: 'metro',
+    phone: '',
+    link: 'https://goo.gl/maps/xoN4hNxdXn8s3kq57'
+  }
+  , {
+    lat: 40.372745,
+    lng: 49.809506,
+    title: 'Div Academy',
+    image: 'https://maps.gstatic.com/tactile/pane/default_geocode-2x.png',
+    address: 'Bakı, Matbuat prospekti 25',
+    description: 'Div Academy - proqramlaşdırma, rəqəmsal marketinq, kibertəhlükəsizlik və mobil inkişaf üzrə tədris verən İT akademiyası.',
+    category: 'academy',
+    phone: '+994 70 256 96 00',
+    link: 'https://div.edu.az'
+  }
+  ,
+  {
+    lat: 40.37962,
+    lng: 49.830324,
+    title: 'Nizami Metro Stansiyası',
+    image: 'https://maps.gstatic.com/tactile/pane/default_geocode-2x.png',
+    address: 'Bakı, Zərgərpalan küçəsi',
+    description: 'Nizami Metro Stansiyası - Bakı Metropoliteninin Yaşıl xəttində yerləşən mərkəzi stansiyalardan biridir, 1976-cı ildən fəaliyyət göstərir.',
+    category: 'metro',
+    phone: +999444994,
+    link: 'https://metro.gov.az'
+  }
    
 
 ]
