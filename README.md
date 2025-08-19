@@ -27,7 +27,7 @@ NEXT_PUBLIC_DEFAULT_ZOOM=12
 ## Tapşırıq necə yerinə yetirildi
 
 Layihəni Next.js ilə yazdım.
-
+2 branchdan istifade etdim main ve intern-map-task
 Tailwind CSS ilə dizayn etdim.
 iconlar ucun lucide icons textin animasiya ucun framer-motion
 Xəritənin göstərilməsi üçün Mapbox istifadə etdim.
