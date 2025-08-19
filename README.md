@@ -22,6 +22,7 @@ NEXT_PUBLIC_MAPBOX_TOKEN=mapboxdakı_tokenin
 NEXT_PUBLIC_DEFAULT_CENTER="[49.8671, 40.4093]"
 NEXT_PUBLIC_DEFAULT_ZOOM=12
 
+[Video kimi ](https://drive.google.com/file/d/11XdKPwID_xJU73D0ZgNviAeJMrsft6fL/view?usp=sharing)
 
 
 ## Tapşırıq necə yerinə yetirildi
