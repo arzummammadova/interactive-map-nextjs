@@ -53,7 +53,7 @@ const markers = [
   lat: 40.390021,
   lng:49.8019656,
   title: 'İnşaatçılar metrosu',
-  image: '/images/insaatcilar.jpg',
+  image: 'https://maps.gstatic.com/tactile/pane/default_geocode-2x.png',
   address: 'Bakı, Yasamal rayonu',
   description: 'İnşaatçılar metrostansiyası - Bakı metrosunun ən işlək stansiyalarından biri.',
   category: 'metro',
@@ -64,7 +64,7 @@ const markers = [
   lat: 40.372745,
   lng: 49.809506,
   title: 'Div Academy',
-  image: '/images/divacademy.jpeg',
+  image: 'https://maps.gstatic.com/tactile/pane/default_geocode-2x.png',
   address: 'Bakı, Matbuat prospekti 25',
   description: 'Div Academy - proqramlaşdırma, rəqəmsal marketinq, kibertəhlükəsizlik və mobil inkişaf üzrə tədris verən İT akademiyası.',
   category: 'academy',
@@ -76,11 +76,11 @@ const markers = [
   lat: 40.37962,
   lng: 49.830324,
   title: 'Nizami Metro Stansiyası',
-  image: '/images/nizami_metro.jpeg',
+  image: 'https://maps.gstatic.com/tactile/pane/default_geocode-2x.png',
   address: 'Bakı, Zərgərpalan küçəsi',
   description: 'Nizami Metro Stansiyası - Bakı Metropoliteninin Yaşıl xəttində yerləşən mərkəzi stansiyalardan biridir, 1976-cı ildən fəaliyyət göstərir.',
   category: 'metro',
-  phone: null,
+  phone: +999444994,
   link: 'https://metro.gov.az'
 }
 
