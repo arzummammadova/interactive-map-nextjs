@@ -4,7 +4,6 @@ Interaktiv Map-GeoMap
 
 
 ![Map Screenshot](/public/images/cover.png)
-<img src="/public/images/cover2.png" alt="Map Screenshot" width="600" height="400" />
 
 
 ##  Run etmək üçün
