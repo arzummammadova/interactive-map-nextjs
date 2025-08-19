@@ -4,6 +4,8 @@ Interaktiv Map-GeoMap
 
 
 ![Map Screenshot](/public/images/cover.png)
+<img src="/public/images/cover2.png" alt="Map Screenshot" width="600" height="400" />
+
 
 ##  Run etmək üçün
 ```bash
@@ -20,12 +22,13 @@ NEXT_PUBLIC_MAPBOX_TOKEN=mapboxdakı_tokenin
 NEXT_PUBLIC_DEFAULT_CENTER="[49.8671, 40.4093]"
 NEXT_PUBLIC_DEFAULT_ZOOM=12
 
+[Video kimi ](https://drive.google.com/file/d/11XdKPwID_xJU73D0ZgNviAeJMrsft6fL/view?usp=sharing)
 
 
 ## Tapşırıq necə yerinə yetirildi
 
 Layihəni Next.js ilə yazdım.
-
+2 branchdan istifade etdim main ve intern-map-task
 Tailwind CSS ilə dizayn etdim.
 iconlar ucun lucide icons textin animasiya ucun framer-motion
 Xəritənin göstərilməsi üçün Mapbox istifadə etdim.
@@ -37,6 +40,14 @@ Home, Map, Search səhifələrinin hamısında eyni xəritə komponentindən ist
 Home Page – center = false olduqda default xəritə göstərilir.
 
 diger Page-lerde .env fayldakı parametrləri oxuyur ona gore merkezlesir , istifadəçi icazə versə xəritəni onun mövqeyinə mərkəzləşdirir.
+ 
+### Hər route üçün hansı data‑fetching metodundan (SSG/CSR) istifadə olunduğunu izah
+
+/  SSG
+Sadə səhifə, statik render olunur.
+/map CSR Xəritə komponenti dynamic import ilə yalnız brauzerdə yüklənir 
+/search CSR (SWR)
+API /api/poi çağırışları useSWR ilə client-side edilir
 
 
 
@@ -46,24 +57,34 @@ Markerlərlə məkanları göstərdim.
 Kliklənəndə popup açılır (title, description, image və s. göstərilir).
 
 const Map = dynamic(() => import('@/components/Map'), { ssr: false }) istifadə etdim.
+SSR zamanı yüklənmir, yalnız brauzerdə göstərilir.
+
+fitBounds istifadə bütün markerlər xəritəyə yerləşsin
 
 ### Search Page
 
 /app/api/poi – ada görə POI axtarışı.
 
-SWR istifadə etdim.
+SWR istifadə etdim useSWR(url, fetcher)
 
 Loading/Error vəziyyətlərini göstərdim.
 
 Loading zamanı spinner çıxır.
 error zamanani netice tapilmadi 
+useDebounce hook ilə lazımsız request-lərin qarşısı aldim
 
+
+
+### Map component
+Mapbox GL JS istifadə olunub
+Default zoom və center env.local-dan gəlir
+User geolocation dəstəklənir
+marker popup var 
 GeoJSON Layer
 
 Hüseyn Cavid parkının məlumatlarını götürdüm (XML formatında).
 
 Sonra .geojson-a çevirdim və xəritədə istifadə etdim.
-
 ## menbeler
 
 https://youtu.be/elidLLPzmZY?si=AuotN6lvNLbUBTtd
@@ -91,7 +112,6 @@ https://www.google.com/maps/place/Elml%C9%99r+Akademiyas%C4%B1+Metro+Stansiyas%C
 
 
 https://docs.mapbox.com/api/maps/styles/
-https://icons8.com/icons/set/location
 
 https://globe.gl/
 
@@ -117,13 +137,13 @@ https://racum.blog/articles/osm-to-geojson/
 
 https://geojson.io/#map=2/0/20
 
-https://mygeodata.cloud/conversion#result -convert ucun
+https://mygeodata.cloud/conversion#result 
 
 https://developers.google.com/maps/documentation/javascript/marker-clustering
 
 
 https://www.dhiwise.com/blog/design-converter/how-to-use-usedebounce-for-better-react-performance
---inputa yazanda  usedebounce
 
 
-//left sidebar
+
+
